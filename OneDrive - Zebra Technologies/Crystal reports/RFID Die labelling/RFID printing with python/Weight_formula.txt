@@ -1,0 +1,26 @@
+
+    If PressType = "7 Inch" Then
+        weight := 7 * 0.145 
+    Else If PressType = "10 Inch" Then
+        weight := 10 * 0.232
+    Else If PressType = "14 Inch" Then
+        weight := 14 * 0.305 
+    Else If PressType = "17 Inch" Then
+        weight := 17 * 0.378
+    Else
+        weight := 0; 
+
+
+if tool_type_code == 'RMD':
+        weight = 1
+    else:
+        if press_type == "7 Inch":
+            weight = 7 * 0.145
+        elif press_type == "10 Inch":
+            weight = 10 * 0.232
+        elif press_type == "14 Inch":
+            weight = 14 * 0.305
+        elif press_type == "17 Inch":
+            weight = 17 * 0.378
+        else:
+            weight = 0  # Default weight if PressType is unknown

@@ -1,0 +1,59 @@
+^XA
+
+^RS8
+^RFW,A
+^FDRDTEST0001*00000^FS
+^RFR,A
+^FO3.996,1.998^XG1Weight.GRF,1,1^FS
+^FO311.853,64.816^A0N,51,51^FD{teeth} T^FS
+^FO666.703,37.963^A0N,34,34^FD{weight:.2f} KG^FS
+^FO147.934,163.119^A0N,34,34^FD{manual_handling}^FS
+^FO233.290,262.621^A0N,34,34^FD{spec_code}^FS
+^FO233.290,315.209^BY3,3.0,50^BCW,N,N,Y,N,N^FD{tool_code}^FS
+^FO641.848,262.622^A0N,31,31^FDLegacy Code:^FS
+^FO602.526,357.728^A0N,39,39^FD{legacy_code}^FS
+^FO126.435,427.019^A0N,102,102^FD{tool_code}^FS
+^XZ
+
+^XA                             ; Start the label format
+^RS8                            ; Select the print resolution
+^RFW,A                          ; Set the rotation of the label to 'A'
+^FDRDTEST0001*00000^FS         ; Print the string 'RDTEST0001*00000' in the default font
+
+^RFR,A                          ; Reset to default rotation for subsequent commands
+^FO3.996,1.998                 ; Field Origin: set the position (X=3.996 dots, Y=1.998 dots)
+^XG1Weight.GRF,1,1^FS          ; Print graphic image from the file '1Weight.GRF', scale 1:1
+
+^FO311.853,64.816              ; Field Origin: set the position (X=311.853 dots, Y=64.816 dots)
+^A0N,51,51                     ; Select font type (0), normal orientation, height 51 dots, width 51 dots
+^FD{teeth} T^FS                ; Field Data: print the variable '{teeth}' followed by ' T'
+
+^FO666.703,37.963              ; Field Origin: set the position (X=666.703 dots, Y=37.963 dots)
+^A0N,34,34                     ; Select font type (0), normal orientation, height 34 dots, width 34 dots
+^FD{weight:.2f} KG^FS          ; Field Data: print the variable '{weight}' formatted to 2 decimal places followed by ' KG'
+
+^FO147.934,163.119             ; Field Origin: set the position (X=147.934 dots, Y=163.119 dots)
+^A0N,34,34                     ; Select font type (0), normal orientation, height 34 dots, width 34 dots
+^FD{manual_handling}^FS         ; Field Data: print the variable '{manual_handling}'
+
+^FO233.290,262.621             ; Field Origin: set the position (X=233.290 dots, Y=262.621 dots)
+^A0N,34,34                     ; Select font type (0), normal orientation, height 34 dots, width 34 dots
+^FD{spec_code}^FS              ; Field Data: print the variable '{spec_code}'
+
+^FO233.290,315.209             ; Field Origin: set the position (X=233.290 dots, Y=315.209 dots)
+^BY3,3.0,50                    ; Set barcode width to 3, narrow width to 3 dots, height to 50 dots
+^BCW,N,N,Y,N,N^FD{tool_code}^FS; Print Code 128 barcode for the variable '{tool_code}'
+
+^FO641.848,262.622             ; Field Origin: set the position (X=641.848 dots, Y=262.622 dots)
+^A0N,31,31                     ; Select font type (0), normal orientation, height 31 dots, width 31 dots
+^FDLegacy Code:^FS             ; Field Data: print 'Legacy Code:'
+
+^FO602.526,357.728             ; Field Origin: set the position (X=602.526 dots, Y=357.728 dots)
+^A0N,39,39                     ; Select font type (0), normal orientation, height 39 dots, width 39 dots
+^FD{legacy_code}^FS            ; Field Data: print the variable '{legacy_code}'
+
+^FO126.435,427.019             ; Field Origin: set the position (X=126.435 dots, Y=427.019 dots)
+^A0N,102,102                   ; Select font type (0), normal orientation, height 102 dots, width 102 dots
+^FD{tool_code}^FS              ; Field Data: print the variable '{tool_code}'
+
+^XZ                             ; End the label format

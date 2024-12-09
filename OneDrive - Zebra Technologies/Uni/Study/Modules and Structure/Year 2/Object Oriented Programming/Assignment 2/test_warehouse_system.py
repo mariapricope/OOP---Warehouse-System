@@ -21,24 +21,24 @@ class TestWarehouseSystem(unittest.TestCase):
         print("Clearing database and resetting warehouse state...")
         self.db_manager.cursor.execute("DELETE FROM stock_items")
         self.db_manager.connection.commit()
-        self.warehouse.stock_items = []
 
     def test_add_item(self):
         print("Running test_add_item...")
         item = ConcreteStockItem(None, "Box", 15, "Packaging")
         self.warehouse.add_item(item)
-        print(f"Items in warehouse after add: {self.warehouse.list_items()}")
-        self.assertEqual(len(self.warehouse.stock_items), 1)
-        self.assertEqual(self.warehouse.stock_items[0].name, "Box")
+        items = self.warehouse.list_items()
+        print(f"Items in warehouse after add: {items}")
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].name, "Box")
 
     def test_remove_item(self):
         print("Running test_remove_item...")
         item = ConcreteStockItem(None, "Core", 20, "Materials")
         self.warehouse.add_item(item)
-        print(f"Items in warehouse before remove: {self.warehouse.list_items()}")
         self.warehouse.remove_item(item.item_id)
-        print(f"Items in warehouse after remove: {self.warehouse.list_items()}")
-        self.assertEqual(len(self.warehouse.stock_items), 0)
+        items = self.warehouse.list_items()
+        print(f"Items in warehouse after remove: {items}")
+        self.assertEqual(len(items), 0)
 
     def test_list_items(self):
         print("Running test_list_items...")
@@ -54,7 +54,6 @@ class TestWarehouseSystem(unittest.TestCase):
         print("Running test_update_quantity...")
         item = ConcreteStockItem(None, "Pallet", 10, "Logistics")
         self.warehouse.add_item(item)
-        print(f"Initial item quantity: {item.quantity}")
         item.update_quantity(15)
         print(f"Item quantity after update: {item.quantity}")
         self.assertEqual(item.quantity, 25)
@@ -66,14 +65,29 @@ class TestWarehouseSystem(unittest.TestCase):
         print("Running test_database_integration...")
         item = ConcreteStockItem(None, "Crate", 40, "Storage")
         self.warehouse.add_item(item)
-        print(f"Items in database after add: {self.warehouse.list_items()}")
+        items = self.warehouse.list_items()
+        print(f"Items in database after add: {items}")
 
-        print("Creating new Warehouse instance for integration test...")
+        # Simulate a new session with the database
         new_warehouse = Warehouse(self.db_manager)
-        print(f"Items in new warehouse instance: {new_warehouse.list_items()}")
-        self.assertEqual(len(new_warehouse.stock_items), 1)
-        self.assertEqual(new_warehouse.stock_items[0].name, "Crate")
+        items_in_new_session = new_warehouse.list_items()
+        print(f"Items in new warehouse instance: {items_in_new_session}")
+        self.assertEqual(len(items_in_new_session), 1)
+        self.assertEqual(items_in_new_session[0].name, "Crate")
 
+    def test_missing_values(self):
+        print("Running test_missing_values...")
+        # Test missing name
+        with self.assertRaises(ValueError):
+            ConcreteStockItem(None, "", 10, "Category")  # Missing name
+
+        # Test missing category
+        with self.assertRaises(ValueError):
+            ConcreteStockItem(None, "ItemName", 10, "")  # Missing category
+
+        # Test negative quantity
+        with self.assertRaises(ValueError):
+            ConcreteStockItem(None, "ItemName", -10, "Category")  # Negative quantity
 
 if __name__ == "__main__":
     unittest.main()

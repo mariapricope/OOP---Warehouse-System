@@ -61,6 +61,15 @@ class StockItem(ABC):
 
 # Concrete StockItem Class
 class ConcreteStockItem(StockItem):
+    def __init__(self, item_id, name, quantity, category):
+        if not name:
+            raise ValueError("Name cannot be empty.")
+        if not category:
+            raise ValueError("Category cannot be empty.")
+        if quantity is None or quantity < 0:
+            raise ValueError("Quantity must be a non-negative integer.")
+        super().__init__(item_id, name, quantity, category)
+
     def update_quantity(self, amount):
         if amount < 0 and self.quantity + amount < 0:
             raise ValueError("Quantity cannot be negative.")

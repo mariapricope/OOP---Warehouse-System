@@ -53,18 +53,22 @@ class WarehouseGUI:
         # Load items
         self.load_items()
 
+
     def load_items(self):
         """Load items from the warehouse into the Treeview."""
+        # Clear the current contents of the tree view
         for row in self.tree.get_children():
             self.tree.delete(row)
 
+        # Insert each item into the tree view
         for item in self.warehouse.list_items():
-            parts = item.split(", ")
-            item_id = parts[0].split(": ")[1]
-            name = parts[1].split(": ")[1]
-            quantity = parts[2].split(": ")[1]
-            category = parts[3].split(": ")[1]
+            # Access the item's attributes directly
+            item_id = item.item_id
+            name = item.name
+            quantity = item.quantity
+            category = item.category
             self.tree.insert("", tk.END, values=(item_id, name, quantity, category))
+
 
     def add_item_popup(self):
         """Open a popup window to add a new item."""
